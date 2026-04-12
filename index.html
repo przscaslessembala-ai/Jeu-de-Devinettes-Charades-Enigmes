@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeu de Devinettes & Énigmes</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <main class="container">
+
+    <header class="hero">
+      <div class="logo">🧠</div>
+      <h1 class="title-anim">Jeu de Devinettes<br /><span>&amp; Énigmes</span></h1>
+      <p class="subtitle">Testez votre logique, culture générale et réflexion !</p>
+      <div class="stars-row">⭐⭐⭐⭐⭐</div>
+    </header>
+
+    <section class="card" id="setup-form">
+
+      <div class="form-group">
+        <label for="pseudo">Votre pseudo</label>
+        <input
+          type="text"
+          id="pseudo"
+          placeholder="Entrez votre pseudo..."
+          maxlength="20"
+          autocomplete="off"
+        />
+        <span class="input-error" id="pseudo-error">Veuillez entrer un pseudo.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Catégorie</label>
+        <div class="choice-grid" id="category-grid">
+          <button class="choice-btn active" data-value="devinette">
+            <span class="choice-icon">💡</span>
+            <span class="choice-label">Devinette</span>
+            <span class="choice-desc">Logique &amp; astuce</span>
+          </button>
+          <button class="choice-btn" data-value="charade">
+            <span class="choice-icon">🔤</span>
+            <span class="choice-label">Charade</span>
+            <span class="choice-desc">Syllabes &amp; mots</span>
+          </button>
+          <button class="choice-btn" data-value="enigme">
+            <span class="choice-icon">🔮</span>
+            <span class="choice-label">Énigme</span>
+            <span class="choice-desc">Réflexion ouverte</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Niveau de difficulté</label>
+        <div class="level-grid" id="level-grid">
+          <button class="level-btn active" data-value="facile">
+            <span class="level-icon">🟢</span>
+            <span class="level-name">Facile</span>
+            <ul class="level-info">
+              <li>10 questions</li>
+              <li>45 sec / question</li>
+              <li>1 vie</li>
+              <li>10 pts / bonne réponse</li>
+            </ul>
+          </button>
+          <button class="level-btn" data-value="moyen">
+            <span class="level-icon">🟡</span>
+            <span class="level-name">Moyen</span>
+            <ul class="level-info">
+              <li>15 questions</li>
+              <li>35 sec / question</li>
+              <li>3 vies</li>
+              <li>15 pts / bonne réponse</li>
+            </ul>
+          </button>
+          <button class="level-btn" data-value="difficile">
+            <span class="level-icon">🔴</span>
+            <span class="level-name">Difficile</span>
+            <ul class="level-info">
+              <li>20 questions</li>
+              <li>25 sec / question</li>
+              <li>5 vies</li>
+              <li>20 pts / bonne réponse</li>
+            </ul>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn-start" id="btn-start">
+        <span class="btn-text">Lancer la partie 🚀</span>
+        <span class="btn-shine"></span>
+      </button>
+
+    </section>
+
+    <footer class="footer">
+      <a href="leaderboard.html" class="link-leaderboard">🏆 Voir le classement</a>
+    </footer>
+
+  </main>
+
+  <script>
+    /* ========================================================
+       Auteur : P1 — Accueil & Navigation
+       Description : Gestion du formulaire de démarrage,
+       sélection catégorie/niveau, validation pseudo,
+       animation de lancement et particules canvas.
+    ======================================================== */
+
+    /* -- Récupération des éléments du DOM -- */
+    const categoryBtns = document.querySelectorAll("#category-grid .choice-btn");
+    const levelBtns    = document.querySelectorAll("#level-grid .level-btn");
+    const pseudoInput  = document.getElementById("pseudo");
+    const pseudoError  = document.getElementById("pseudo-error");
+    const btnStart     = document.getElementById("btn-start");
+
+    /* -- Valeurs sélectionnées par défaut -- */
+    let selectedCategory = "devinette";
+    let selectedLevel    = "facile";
+
+    /* -- Gestion du choix de catégorie -- */
+    categoryBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        categoryBtns.forEach(function(b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        selectedCategory = btn.dataset.value;
+        spawnBurst(btn);
+      });
+    });
+
+    /* -- Gestion du choix du niveau -- */
+    levelBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        levelBtns.forEach(function(b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        selectedLevel = btn.dataset.value;
+        spawnBurst(btn);
+      });
+    });
+
+    /* -- Validation et lancement de la partie -- */
+    btnStart.addEventListener("click", function() {
+      const pseudo = pseudoInput.value.trim();
+
+      /* Vérification que le pseudo n'est pas vide */
+      if (!pseudo) {
+        pseudoError.classList.add("visible");
+        pseudoInput.classList.add("shake");
+        setTimeout(function() { pseudoInput.classList.remove("shake"); }, 500);
+        pseudoInput.focus();
+        return;
+      }
+
+      pseudoError.classList.remove("visible");
+      btnStart.classList.add("launching");
+
+      /* Sauvegarde des choix dans sessionStorage avant redirection */
+      sessionStorage.setItem("pseudo", pseudo);
+      sessionStorage.setItem("category", selectedCategory);
+      sessionStorage.setItem("level", selectedLevel);
+
+      /* Légère pause pour laisser l'animation se jouer */
+      setTimeout(function() { window.location.href = "game.html"; }, 700);
+    });
+
+    /* -- Masquer l'erreur quand l'utilisateur retape -- */
+    pseudoInput.addEventListener("input", function() {
+      if (pseudoInput.value.trim()) pseudoError.classList.remove("visible");
+    });
+
+    /* ---------- Animation particules au clic sur un bouton ---------- */
+    function spawnBurst(el) {
+      const rect   = el.getBoundingClientRect();
+      const cx     = rect.left + rect.width / 2;
+      const cy     = rect.top  + rect.height / 2;
+      const colors = ["#f9ca24", "#6c63ff", "#ff6584", "#43d98f", "#ff9ff3"];
+
+      for (let i = 0; i < 8; i++) {
+        const dot   = document.createElement("div");
+        dot.className = "burst-dot";
+        dot.style.cssText = "left:" + cx + "px;top:" + cy + "px;background:" + colors[i % colors.length] + ";";
+
+        const angle = (i / 8) * 2 * Math.PI;
+        const dist  = 40 + Math.random() * 30;
+        dot.style.setProperty("--tx", Math.cos(angle) * dist + "px");
+        dot.style.setProperty("--ty", Math.sin(angle) * dist + "px");
+
+        document.body.appendChild(dot);
+        setTimeout(function() { dot.remove(); }, 600);
+      }
+    }
+
+    /* ---------- Fond animé : particules emoji flottantes ---------- */
+    const canvas     = document.getElementById("particles-canvas");
+    const ctx        = canvas.getContext("2d");
+    let W, H;
+    let particles    = [];
+
+    /* Adaptation à la taille de l'écran */
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    /* Liste des emojis utilisés comme particules */
+    const EMOJIS = ["❓", "💡", "🔮", "🎯", "⭐", "🔤", "🏆"];
+
+    /* Initialisation des 22 particules */
+    for (let i = 0; i < 22; i++) {
+      particles.push({
+        x:       Math.random() * window.innerWidth,
+        y:       Math.random() * window.innerHeight,
+        size:    14 + Math.random() * 12,
+        speedY:  -(0.3 + Math.random() * 0.5),
+        speedX:  (Math.random() - 0.5) * 0.4,
+        opacity: 0.12 + Math.random() * 0.18,
+        emoji:   EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
+      });
+    }
+
+    /* Boucle de dessin des particules */
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(function(p) {
+        ctx.globalAlpha = p.opacity;
+        ctx.font        = p.size + "px serif";
+        ctx.fillText(p.emoji, p.x, p.y);
+        p.y += p.speedY;
+        p.x += p.speedX;
+        /* Réinitialise la particule en bas quand elle sort par le haut */
+        if (p.y < -30) {
+          p.y = H + 30;
+          p.x = Math.random() * W;
+        }
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  </script>
+
+</body>
+</html>
