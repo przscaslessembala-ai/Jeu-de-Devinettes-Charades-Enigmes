@@ -2,12 +2,17 @@
    data.js — 180 questions structurées
    Structure : QUESTIONS[categorie][niveau] = [ {question, reponse, indice} ]
    Catégories : devinette | charade | enigme
-   Niveaux    : facile | moyen | difficile
- */
+   Niveaux    : facile | moyen | difficile  
+   
+   */
 
 const QUESTIONS = {
 
-  /*  DEVINETTES */
+  /* 
+  
+  DEVINETTES
+  
+  */
   
   devinette: {
 
@@ -81,7 +86,11 @@ const QUESTIONS = {
     ]
   },
 
-  /*  CHARADES */
+  /* 
+  
+  CHARADES
+  
+  */
   
   charade: {
 
@@ -155,7 +164,11 @@ const QUESTIONS = {
     ]
   },
 
-  /*  ÉNIGMES */
+  /* 
+  
+  ÉNIGMES
+  
+  */
   
   enigme: {
 
