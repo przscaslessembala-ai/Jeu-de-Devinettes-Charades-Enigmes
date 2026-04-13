@@ -1,6 +1,6 @@
 # Jeu de Devinettes & Énigmes
 
-> Une application web de quiz interactif avec validation par intelligence artificielle, classement en ligne et animations immersives.
+> Une application  de quiz interactif avec validation par intelligence artificielle, classement en ligne et animations immersives.
 
 ![Application Web](https://img.shields.io/badge/🌐-Application%20Web-7c4dff?style=flat-square)
 ![Claude AI](https://img.shields.io/badge/🤖-Claude%20AI-ff4081?style=flat-square)
