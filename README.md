@@ -1,4 +1,4 @@
-# 🧠 Jeu de Devinettes & Énigmes
+# Jeu de Devinettes & Énigmes
 
 > Une application web de quiz interactif avec validation par intelligence artificielle, classement en ligne et animations immersives.
 
@@ -10,7 +10,7 @@
 
 ---
 
-## 📌 Description du projet
+##  Description du projet
 
 **Jeu de Devinettes & Énigmes** est une application web de quiz culturel et de réflexion jouable directement dans le navigateur, sans installation. Le joueur choisit un pseudo, une catégorie de questions et un niveau de difficulté, puis répond à une série de questions contre la montre.
 
@@ -18,7 +18,7 @@ Ce qui distingue ce jeu : les réponses sont validées par **l'intelligence arti
 
 Les scores sont sauvegardés en temps réel dans une base de données **Firebase Firestore**, permettant un classement partagé entre tous les joueurs du monde.
 
-> 💡 Ce projet a été réalisé dans le cadre d'un cours de développement web (Semestre II — KEYCE Informatique). Il couvre les technologies HTML, CSS, JavaScript, l'intégration d'API externe et la gestion collaborative avec Git.
+>  Ce projet a été réalisé dans le cadre d'un cours de développement web (Semestre II — KEYCE Informatique). Il couvre les technologies HTML, CSS, JavaScript, l'intégration d'API externe et la gestion collaborative avec Git.
 
 ---
 
