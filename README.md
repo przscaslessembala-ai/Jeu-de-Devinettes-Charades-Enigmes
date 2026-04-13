@@ -40,7 +40,7 @@ Les scores sont sauvegardés en temps réel dans une base de données **Firebase
 ### Catégories de questions
 
 - 💡 **Devinettes** — Une question dont il faut trouver la réponse par la logique ou la culture générale.
-- 🔤 **Charades** — Une devinette par syllabes : "Mon premier est..., mon second est..., mon tout est..."
+- 🔤 **Charades** — Une devinette par syllabes : "Mon premier est..., mon second est.., mon tout est....."
 - 🔮 **Énigmes** — Un problème de réflexion plus ouvert qui demande de l'observation et du raisonnement.
 
 ### Niveaux de difficulté
