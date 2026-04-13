@@ -46,7 +46,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ========== CANVAS PARTICULES ========== */
+/* ========= CANVAS PARTICULES ========= */
 #particles-canvas {
   position: fixed;
   inset: 0;
@@ -54,7 +54,7 @@ body {
   pointer-events: none;
 }
 
-/* ========== FOND DÉGRADÉ ANIMÉ ========== */
+/* ========= FOND DÉGRADÉ ANIMÉ ========= */
 .bg-shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 
 .shape {
