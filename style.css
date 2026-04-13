@@ -91,7 +91,7 @@ body {
   66%       { transform: scale(0.95) translate(-15px, 15px); }
 }
 
-/* ========== CONTAINER ========== */
+/* ========= CONTAINER ========= */
 .container {
   position: relative;
   z-index: 1;
