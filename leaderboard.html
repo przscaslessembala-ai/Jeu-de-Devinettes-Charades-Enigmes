@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classement — Devinettes & Énigmes</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/leaderboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <main class="container lb-container">
+
+    <header class="lb-header">
+      <a href="index.html" class="btn-back">← Accueil</a>
+      <div class="lb-title-wrap">
+        <div class="lb-trophy">🏆</div>
+        <h1 class="title-anim">Classement</h1>
+      </div>
+    </header>
+
+    <!-- Filtres -->
+    <div class="lb-filters">
+      <div class="filter-group">
+        <label>Période</label>
+        <div class="filter-btns" id="filter-period">
+          <button class="filter-btn active" data-value="all">Tous</button>
+          <button class="filter-btn" data-value="day">Aujourd'hui</button>
+          <button class="filter-btn" data-value="week">Semaine</button>
+          <button class="filter-btn" data-value="month">Mois</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Niveau</label>
+        <div class="filter-btns" id="filter-level">
+          <button class="filter-btn active" data-value="all">Tous</button>
+          <button class="filter-btn" data-value="facile">🟢 Facile</button>
+          <button class="filter-btn" data-value="moyen">🟡 Moyen</button>
+          <button class="filter-btn" data-value="difficile">🔴 Difficile</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Catégorie</label>
+        <div class="filter-btns" id="filter-cat">
+          <button class="filter-btn active" data-value="all">Toutes</button>
+          <button class="filter-btn" data-value="devinette">💡 Devinette</button>
+          <button class="filter-btn" data-value="charade">🔤 Charade</button>
+          <button class="filter-btn" data-value="enigme">🔮 Énigme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Podium top 3 -->
+    <div class="podium" id="podium">
+      <div class="podium-slot" id="pod-2">
+        <div class="pod-avatar">🥈</div>
+        <div class="pod-name" id="pod-2-name">—</div>
+        <div class="pod-score" id="pod-2-score">—</div>
+        <div class="pod-bar bar-2"></div>
+      </div>
+      <div class="podium-slot" id="pod-1">
+        <div class="pod-avatar">🥇</div>
+        <div class="pod-name" id="pod-1-name">—</div>
+        <div class="pod-score" id="pod-1-score">—</div>
+        <div class="pod-bar bar-1"></div>
+      </div>
+      <div class="podium-slot" id="pod-3">
+        <div class="pod-avatar">🥉</div>
+        <div class="pod-name" id="pod-3-name">—</div>
+        <div class="pod-score" id="pod-3-score">—</div>
+        <div class="pod-bar bar-3"></div>
+      </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="lb-card">
+      <div class="lb-loading" id="lb-loading">
+        <div class="spinner"></div>
+        <span>Chargement du classement...</span>
+      </div>
+      <div class="lb-empty hidden" id="lb-empty">
+        <span>😴 Aucun score pour l'instant. Sois le premier !</span>
+      </div>
+      <table class="lb-table hidden" id="lb-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Joueur</th>
+            <th>Score</th>
+            <th>Niveau</th>
+            <th>Catégorie</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="lb-body"></tbody>
+      </table>
+    </div>
+
+    <!-- Score du joueur actuel -->
+    <div class="my-score-banner hidden" id="my-score-banner">
+      <span>🎯 Ton dernier score : <strong id="my-score-val"></strong> pts</span>
+      <span id="my-rank-val"></span>
+    </div>
+
+    <div class="lb-footer">
+      <button class="btn-refresh" id="btn-refresh">🔄 Actualiser</button>
+      <a href="index.html" class="link-leaderboard">🎮 Jouer</a>
+    </div>
+
+  </main>
+
+  <script type="module" src="js/leaderboard.js"></script>
+
+</body>
+</html>
