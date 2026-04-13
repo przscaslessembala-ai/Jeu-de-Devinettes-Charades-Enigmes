@@ -174,7 +174,7 @@ body {
   backdrop-filter: blur(12px);
 }
 
-/* ========== FORM GROUP ========== */
+/* ========= FORM GROUP ========= */
 .form-group { display: flex; flex-direction: column; gap: 0.6rem; }
 
 .form-group label {
